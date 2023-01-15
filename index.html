@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <div class="centrado">
+            <h1 class="logo"><img src="img/logo.png" alt="logo de Alura"></h1>
+            <hr>
+        </div>
+    </header>
+
+    <main>
+        <section class="centrado">
+            <div class="entrada">
+                <div class="texto-entrada" >
+                    <div class="contenido">
+                        <textarea class="texto-entrada-contenido"  id="texto-entrada-contenido" name="comentario" placeholder="Ingrese el texto aquí" ></textarea>
+                            
+                        <div class="centrado-botones">
+                            <button class="boton-encriptar">encriptar</button>
+                            <button class="boton-desencriptar">desencriptar</button>
+                        </div> 
+                    </div>
+                </div> 
+
+                <p class="reglas">&#127758; Sólo letras minúsculas y sin acentos.</p> 
+            </div>
+                           
+            <div class="texto-salida">
+                <div class="salida">
+                   <textarea readonly class="texto-salida-contenido" id="texto-salida-contenido">Ningún mensaje fue encontrado</textarea>
+                   <div class="centrado-botones">
+                        <button class="boton-copiar">Copiar</button> 
+                   </div>
+                </div>  
+            </div>
+        </section>
+           
+    </main>
+    
+    <footer>
+        <div class="centrado">
+            <p class="copy">&copy Creado por Agustina Toledo</p>
+            
+        </div>
+    </footer>
+
+    <script>
+        var textoEntrada =document.getElementById("texto-entrada-contenido");
+        textoEntrada.focus();
+        var textoSalida =document.getElementById("texto-salida-contenido");
+        
+        function validar(){
+            var resultado=false;
+            let texto2=textoEntrada.value;
+            if ((/[A-Z]/.test(texto2)) || /[á-ú]/.test(texto2)){
+                alert("🌎 Sólo letras minúsculas y sin acentos");
+                
+            }else if(texto2.length==0 || texto2 ==" "*texto2.length){
+                textoSalida.value="Ningún mensaje fue encontrado";
+                console.log(texto2.length);
+                
+            }else{
+                return resultado=true;
+            }
+        }
+
+        function encriptar(){
+            if (validar()){
+                texto2=textoEntrada.value
+                .replace(/e/g, "enter")
+                .replace(/i/g, "imes")
+                .replace(/a/g, "ai")
+                .replace(/o/g, "ober")
+                .replace(/u/g, "ufat")
+                textoSalida.value=texto2;
+            }
+        }
+        function desencriptar(){
+            if (validar()){
+                texto2=textoEntrada.value
+                .replace(/enter/g, "e")
+                .replace(/imes/g, "i")
+                .replace(/ai/g, "a")
+                .replace(/ober/g, "o")
+                .replace(/ufat/g, "u")
+                textoSalida.value=texto2;
+            }
+        }
+        function copiar(){
+            textoSalida.select();
+            textoSalida.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(textoSalida.value);
+            alert("🌎 Copiado: " + textoSalida.value);
+        }
+        
+        var boton = document.querySelector(".boton-encriptar");
+        boton.onclick = encriptar;
+        var boton = document.querySelector(".boton-desencriptar");
+        boton.onclick = desencriptar;
+        var boton = document.querySelector(".boton-copiar");
+        boton.onclick = copiar;
+        
+    </script>
+    
+</body>
+</html>
